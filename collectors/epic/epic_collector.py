@@ -1,3 +1,18 @@
+"""Epic Games data collector used by Athena.
+
+Responsibilities:
+- Read Epic-related playtime information from the supported source.
+- Isolate platform-specific extraction from the rest of the application.
+- Convert raw values into the format expected by Athena services.
+- Report collection failures without leaking them into presentation code.
+Architecture notes:
+- Platform details remain contained inside the collector layer.
+- Normalization is performed before data reaches higher-level services.
+- Debug helpers support diagnosis of difficult extraction cases.
+- The collector can evolve without changing the statistics layer.
+- Callers depend on its public collection contract, not its internals.
+"""
+
 from __future__ import annotations
 
 import json

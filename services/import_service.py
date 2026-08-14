@@ -1,3 +1,18 @@
+"""Application service coordinating imports from platform collectors.
+
+Responsibilities:
+- Execute collection through the collector contract supplied by callers.
+- Convert collected source data into normalized game records.
+- Return synchronization results using the common domain result model.
+- Keep import orchestration independent from UI and CLI presentation.
+Architecture notes:
+- The same service is reused by command-line and graphical entry points.
+- Platform integrations remain delegated to collector implementations.
+- Business flow is centralized instead of duplicated between interfaces.
+- Normalized models form the boundary between collection and processing.
+- Errors are converted into a consistent application-level result.
+"""
+
 from __future__ import annotations
 
 import json

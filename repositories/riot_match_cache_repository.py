@@ -1,3 +1,18 @@
+"""Repository dedicated to the Riot match cache.
+
+Responsibilities:
+- Read and write the cache used by Riot collectors.
+- Centralize JSON persistence and file-path handling for cached matches.
+- Expose account-level cache operations through explicit methods.
+- Prevent collectors from depending directly on the storage format.
+Architecture notes:
+- ``LoLCollector`` consumes this repository through its public API.
+- Persistence details remain isolated from Riot collection logic.
+- A storage-format change is therefore concentrated in this component.
+- The repository provides a clear data-access boundary in Athena.
+- Cache reuse reduces repeated external API requests.
+"""
+
 import json
 from pathlib import Path
 

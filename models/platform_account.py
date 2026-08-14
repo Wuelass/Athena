@@ -1,3 +1,18 @@
+"""Domain model describing an external gaming account.
+
+Responsibilities:
+- Store the identity and platform information needed for collection.
+- Provide platform-specific constructors behind one account abstraction.
+- Normalize identifiers before they are consumed by collectors or services.
+- Keep account metadata separate from individual game records.
+Architecture notes:
+- Collectors receive a domain object instead of unrelated loose parameters.
+- Factory methods centralize conversion from platform account formats.
+- The model avoids duplicating account-shaping logic across workflows.
+- Optional fields support platforms with different identity requirements.
+- This object participates in the common normalized Athena data model.
+"""
+
 from dataclasses import dataclass, field
 
 

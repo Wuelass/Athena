@@ -1,3 +1,18 @@
+"""Statistics view for the Athena graphical interface.
+
+Responsibilities:
+- Display summary values produced by the statistics service.
+- Render platform-level indicators using reusable UI widgets.
+- Refresh statistics when the current application summary changes.
+- Keep visual formatting separate from calculation rules.
+Architecture notes:
+- Statistical calculations are completed by ``StatsService``.
+- The view only consumes the resulting summary structure.
+- Reusable cards and badges reduce duplicated presentation code.
+- No external platform API is accessed from this component.
+- The class belongs exclusively to the presentation layer.
+"""
+
 import customtkinter as ctk
 
 from ui.widgets.platform_badge import PlatformBadge

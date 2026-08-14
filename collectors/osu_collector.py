@@ -1,3 +1,18 @@
+"""osu! API collector for Athena.
+
+Responsibilities:
+- Retrieve account and playtime information from the osu! service.
+- Encapsulate authentication and HTTP requests for this platform.
+- Validate remote responses before exposing values to the application.
+- Convert platform data into Athena-compatible domain information.
+Architecture notes:
+- API-specific behaviour stays outside business and presentation layers.
+- Callers interact with the collector through a small public interface.
+- Authentication data is supplied through configuration at runtime.
+- Remote failures are handled at the integration boundary.
+- Normalized results can be reused by CLI and graphical workflows.
+"""
+
 from __future__ import annotations
 
 import json
