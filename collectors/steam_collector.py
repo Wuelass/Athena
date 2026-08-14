@@ -12,6 +12,11 @@ from models.normalized_game import NormalizedGame
 from models.platform_account import PlatformAccount
 from models.sync_result import SyncResult
 
+import logging
+from typing import List
+
+logger = logging.getLogger(__name__)
+
 
 class SteamCollector(BaseCollector):
     platform_name = "steam"
@@ -106,13 +111,23 @@ class SteamCollector(BaseCollector):
     def _normalize_games(self, raw_games: list[dict]) -> List[NormalizedGame]:
         normalized_games: List[NormalizedGame] = []
 
-        for raw_game in raw_games:
+        for index, raw_game in enumerate(raw_games):
             try:
                 normalized_game = NormalizedGame.from_steam(raw_game)
                 normalized_games.append(normalized_game)
-            except Exception:
-                # En V1, on ignore silencieusement les entrées invalides.
-                # Plus tard, on pourra logger ça proprement.
+
+            except (KeyError, TypeError, ValueError) as exc:
+                game_name = raw_game.get("name", "Unknown Game") if isinstance(raw_game, dict) else "Invalid raw data"
+                game_id = raw_game.get("appid", "Unknown appid") if isinstance(raw_game, dict) else "Unknown appid"
+
+                logger.warning(
+                    "Jeu Steam ignoré lors de la normalisation | index=%s | appid=%s | name=%s | error=%s",
+                    index,
+                    game_id,
+                    game_name,
+                    exc,
+                )
+
                 continue
 
         return normalized_games
