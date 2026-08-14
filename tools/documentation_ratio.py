@@ -16,6 +16,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 SOURCE_ROOTS = ("collectors", "models", "repositories", "services", "ui", "utils")
 ROOT_FILES = ("main.py",)
+DOCSTRING_NODES = (ast.Module, ast.ClassDef, ast.FunctionDef, ast.AsyncFunctionDef)
 
 
 def source_files() -> list[Path]:
@@ -28,12 +29,10 @@ def source_files() -> list[Path]:
 def docstring_line_numbers(source: str) -> set[int]:
     lines: set[int] = set()
     tree = ast.parse(source)
-    nodes = [tree, *ast.walk(tree)]
-    for node in nodes:
-        body = getattr(node, "body", None)
-        if not body:
+    for node in [tree, *ast.walk(tree)]:
+        if not isinstance(node, DOCSTRING_NODES) or not node.body:
             continue
-        first = body[0]
+        first = node.body[0]
         if (
             isinstance(first, ast.Expr)
             and isinstance(first.value, ast.Constant)
@@ -47,10 +46,11 @@ def docstring_line_numbers(source: str) -> set[int]:
 
 def comment_line_numbers(source: str) -> set[int]:
     lines: set[int] = set()
+    physical = source.splitlines()
     for token in tokenize.generate_tokens(io.StringIO(source).readline):
         if token.type != tokenize.COMMENT:
             continue
-        prefix = source.splitlines()[token.start[0] - 1][: token.start[1]]
+        prefix = physical[token.start[0] - 1][: token.start[1]]
         if not prefix.strip():
             lines.add(token.start[0])
     return lines
@@ -78,9 +78,7 @@ def main() -> None:
         ratio = (documentation / non_empty * 100) if non_empty else 0.0
         print(f"{path.relative_to(ROOT)!s:48} {documentation:4}/{non_empty:4}  {ratio:6.2f}%")
 
-    ratio = (
-        total_documentation / total_non_empty * 100 if total_non_empty else 0.0
-    )
+    ratio = total_documentation / total_non_empty * 100 if total_non_empty else 0.0
     print()
     print(f"TOTAL_DOCUMENTATION_LINES={total_documentation}")
     print(f"TOTAL_NON_EMPTY_LINES={total_non_empty}")
