@@ -1,7 +1,4 @@
 import customtkinter as ctk
-
-from collectors.osu_collector import OsuCollector
-from collectors.steam_collector import SteamCollector
 from config import (
     OSU_CLIENT_ID,
     OSU_CLIENT_SECRET,
@@ -9,6 +6,9 @@ from config import (
     STEAM_API_KEY,
     STEAM_ID,
 )
+
+from collectors.osu_collector import OsuCollector
+from collectors.steam_collector import SteamCollector
 from models.platform_account import PlatformAccount
 from services.import_service import ImportService
 from services.merge_service import MergeService
@@ -122,7 +122,7 @@ class App(ctk.CTk):
             self.home_view.set_idle()
             self.show_stats()
 
-        except Exception as exc:
+        except Exception as exc:  # noqa: BLE001
             self.home_view.set_status(f"Erreur inattendue : {exc}")
             self.home_view.set_idle()
 

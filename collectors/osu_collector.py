@@ -72,7 +72,7 @@ class OsuCollector(BaseCollector):
 
             return [game], result
 
-        except Exception as exc:
+        except (RuntimeError, TypeError, ValueError) as exc:
             duration = perf_counter() - start_timer
             finished_at = self.now_iso()
 
@@ -156,7 +156,7 @@ class OsuCollector(BaseCollector):
             raise RuntimeError("Réponse profil osu invalide (JSON)") from exc
 
         if not isinstance(payload, dict):
-            raise RuntimeError("Format inattendu reçu depuis osu API")
+            raise TypeError("Format inattendu reçu depuis osu API")
 
         return payload
 
@@ -184,5 +184,5 @@ class OsuCollector(BaseCollector):
             if not raw:
                 return "aucun détail"
             return raw
-        except Exception:
+        except (OSError, UnicodeDecodeError):
             return "détail non lisible"

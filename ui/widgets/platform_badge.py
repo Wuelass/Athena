@@ -1,8 +1,10 @@
+from typing import ClassVar
+
 import customtkinter as ctk
 
 
 class PlatformBadge(ctk.CTkLabel):
-    PLATFORM_COLORS = {
+    PLATFORM_COLORS: ClassVar[dict[str, tuple[str, str]]] = {
         "steam": ("#1b2838", "#1b2838"),
         "osu": ("#ff66aa", "#ff66aa"),
         "riot": ("#cc2936", "#cc2936"),

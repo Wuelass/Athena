@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from abc import ABC, abstractmethod
-from datetime import datetime
+from datetime import UTC, datetime
 
 from models.normalized_game import NormalizedGame
 from models.platform_account import PlatformAccount
@@ -51,7 +51,7 @@ class BaseCollector(ABC):
         """
         Retourne la date/heure courante au format ISO.
         """
-        return datetime.now().isoformat(timespec="seconds")
+        return datetime.now(UTC).isoformat(timespec="seconds")
 
     def build_success_result(
         self,

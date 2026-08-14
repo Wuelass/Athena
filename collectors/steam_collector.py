@@ -54,7 +54,7 @@ class SteamCollector(BaseCollector):
 
             return games, result
 
-        except Exception as exc:
+        except (RuntimeError, TypeError, ValueError) as exc:
             duration = perf_counter() - start_timer
             finished_at = self.now_iso()
 
@@ -101,7 +101,7 @@ class SteamCollector(BaseCollector):
         games = response_data.get("games", [])
 
         if not isinstance(games, list):
-            raise RuntimeError("Format inattendu reçu depuis Steam API")
+            raise TypeError("Format inattendu reçu depuis Steam API")
 
         return games
 

@@ -13,11 +13,11 @@ from utils.ocr import clean_text, extract_playtime, image_to_text, playtime_to_h
 def enable_dpi_awareness() -> None:
     try:
         ctypes.windll.shcore.SetProcessDpiAwareness(2)
-    except Exception:
+    except (AttributeError, OSError):
         try:
             ctypes.windll.user32.SetProcessDPIAware()
-        except Exception:
-            pass
+        except (AttributeError, OSError):
+            return
 
 
 class XboxUICollector:

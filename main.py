@@ -1,8 +1,3 @@
-from collectors.epic.epic_collector import EpicCollector
-from collectors.osu_collector import OsuCollector
-from collectors.riot.lol_collector import LoLCollector
-from collectors.riot.valorant_collector import ValorantCollector
-from collectors.steam_collector import SteamCollector
 from config import (
     EPIC_DEBUG,
     EPIC_ENABLE_LOG_ESTIMATE,
@@ -26,6 +21,12 @@ from config import (
     STEAM_API_KEY,
     STEAM_ID,
 )
+
+from collectors.epic.epic_collector import EpicCollector
+from collectors.osu_collector import OsuCollector
+from collectors.riot.lol_collector import LoLCollector
+from collectors.riot.valorant_collector import ValorantCollector
+from collectors.steam_collector import SteamCollector
 from models.platform_account import PlatformAccount
 from services.import_service import ImportService
 from services.merge_service import MergeService
@@ -43,7 +44,7 @@ def main() -> None:
         client_secret=OSU_CLIENT_SECRET,
     )
 
-    lol_collector = LoLCollector(
+    _lol_collector = LoLCollector(
         api_key=RIOT_API_KEY,
         region=RIOT_MATCH_ROUTE,
         platform_region=RIOT_PLATFORM_REGION,
@@ -54,13 +55,13 @@ def main() -> None:
         mastery_points_per_estimated_game=RIOT_MASTERY_POINTS_PER_ESTIMATED_GAME,
     )
 
-    valorant_collector = ValorantCollector(
+    _valorant_collector = ValorantCollector(
         api_key=RIOT_API_KEY,
         region=RIOT_VAL_REGION,
         debug=RIOT_DEBUG,
     )
 
-    epic_collector = EpicCollector(
+    _epic_collector = EpicCollector(
         saved_dir=EPIC_SAVED_DIR,
         debug=EPIC_DEBUG,
         enable_log_estimate=EPIC_ENABLE_LOG_ESTIMATE,
@@ -77,14 +78,14 @@ def main() -> None:
         username="OsuUser",
     )
 
-    riot_account = PlatformAccount.from_riot(
+    _riot_account = PlatformAccount.from_riot(
         puuid=RIOT_PUUID,
         game_name=RIOT_GAME_NAME,
         tag=RIOT_TAG,
         region=RIOT_MATCH_ROUTE,
     )
 
-    valorant_account = PlatformAccount(
+    _valorant_account = PlatformAccount(
         platform="riot",
         account_id="tracker:valorant:softcult-naive",
         username="SoftCult",
@@ -104,7 +105,7 @@ def main() -> None:
         },
     )
 
-    epic_account = PlatformAccount(
+    _epic_account = PlatformAccount(
         platform="epic",
         account_id="local_epic_launcher",
         username="EpicLocal",
@@ -116,9 +117,9 @@ def main() -> None:
     reports = import_service.import_many([
         (steam_collector, steam_account),
         (osu_collector, osu_account),
-        # (lol_collector, riot_account),
-        # (valorant_collector, valorant_account),
-        # (epic_collector, epic_account),
+        # (_lol_collector, _riot_account),
+        # (_valorant_collector, _valorant_account),
+        # (_epic_collector, _epic_account),
     ])
 
     print("=" * 60)

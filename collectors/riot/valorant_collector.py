@@ -99,7 +99,7 @@ class ValorantCollector(RiotBaseCollector):
 
             return [game], result
 
-        except Exception as exc:
+        except Exception as exc:  # noqa: BLE001
             duration = perf_counter() - start_timer
             finished_at = self.now_iso()
 
@@ -181,8 +181,9 @@ class ValorantCollector(RiotBaseCollector):
                             "data": data,
                         }
                     )
-            except Exception:
-                pass
+            except Exception as exc:  # noqa: BLE001
+                if self.debug:
+                    print(f"[VAL DEBUG] réponse réseau JSON ignorée: {exc}")
 
         with sync_playwright() as playwright:
             browser = playwright.chromium.launch(headless=self.headless)

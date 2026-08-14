@@ -79,7 +79,7 @@ class ImportService:
             try:
                 game = NormalizedGame.from_xbox_json(item)
                 games.append(game)
-            except Exception as exc:
+            except (KeyError, TypeError, ValueError) as exc:
                 print(f"[Xbox] Jeu ignoré ({game_name}) : {exc}")
 
         print(f"[Xbox] {len(games)} jeux chargés depuis {path}")

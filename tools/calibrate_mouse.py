@@ -3,11 +3,11 @@ import time
 
 try:
     ctypes.windll.shcore.SetProcessDpiAwareness(2)
-except Exception:
+except (AttributeError, OSError):
     try:
         ctypes.windll.user32.SetProcessDPIAware()
-    except Exception:
-        pass
+    except (AttributeError, OSError):
+        print("Avertissement : gestion DPI Windows indisponible.")
 
 
 class POINT(ctypes.Structure):

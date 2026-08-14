@@ -58,7 +58,7 @@ class RiotBaseCollector(BaseCollector):
 
                 try:
                     details = exc.read().decode("utf-8")
-                except Exception:
+                except (OSError, UnicodeDecodeError):
                     details = "aucun détail"
 
                 raise RuntimeError(

@@ -144,7 +144,7 @@ class LoLCollector(RiotBaseCollector):
             if self.use_mastery_estimate and cached_match_count > 0:
                 try:
                     mastery_level_score = self._fetch_mastery_level_score_by_puuid(puuid)
-                except Exception as exc:
+                except (RuntimeError, TypeError, ValueError) as exc:
                     if self.debug:
                         print(f"[LOL DEBUG] échec récupération mastery score (levels): {exc}")
 
@@ -161,15 +161,15 @@ class LoLCollector(RiotBaseCollector):
                         mastery_game_estimate - cached_match_count,
                     )
 
-                    estimated_extra_seconds = int(
-                        round(estimated_missing_games * avg_game_seconds)
+                    estimated_extra_seconds = round(
+                        estimated_missing_games * avg_game_seconds
                     )
 
                     used_mastery_estimate = (
                         estimated_missing_games > 0 and estimated_extra_seconds > 0
                     )
 
-                except Exception as exc:
+                except (RuntimeError, TypeError, ValueError) as exc:
                     if self.debug:
                         print(f"[LOL DEBUG] échec récupération mastery points par puuid: {exc}")
 
@@ -325,7 +325,7 @@ class LoLCollector(RiotBaseCollector):
 
             return [game], result
 
-        except Exception as exc:
+        except (RuntimeError, OSError, TypeError, ValueError, KeyError) as exc:
             duration = perf_counter() - start_timer
             finished_at = self.now_iso()
 
@@ -397,7 +397,7 @@ class LoLCollector(RiotBaseCollector):
             data = self._get_json(url)
 
             if not isinstance(data, list):
-                raise RuntimeError("Format inattendu pour la liste des matchs LoL")
+                raise TypeError("Format inattendu pour la liste des matchs LoL")
 
             received = len(data)
 
@@ -497,7 +497,7 @@ class LoLCollector(RiotBaseCollector):
                 }
                 added_count += 1
 
-            except Exception as exc:
+            except (RuntimeError, OSError, TypeError, ValueError, KeyError) as exc:
                 if self.debug:
                     print(f"[LOL DEBUG] erreur pour {match_id}: {exc}")
                 skipped_count += 1
@@ -521,7 +521,7 @@ class LoLCollector(RiotBaseCollector):
         data = self._get_json(url)
 
         if not isinstance(data, dict):
-            raise RuntimeError(f"Format inattendu pour le match LoL {match_id}")
+            raise TypeError(f"Format inattendu pour le match LoL {match_id}")
 
         return data
 
@@ -558,7 +558,7 @@ class LoLCollector(RiotBaseCollector):
         data = self._get_json(url)
 
         if not isinstance(data, list):
-            raise RuntimeError("Format inattendu pour la liste de champion masteries")
+            raise TypeError("Format inattendu pour la liste de champion masteries")
 
         total_points = 0
 

@@ -73,10 +73,7 @@ class MergeService:
         if not game.platform or not game.platform.strip():
             return False
 
-        if game.playtime_hours < 0:
-            return False
-
-        return True
+        return game.playtime_hours >= 0
 
     def _build_unique_key(self, game: NormalizedGame) -> tuple:
         return (

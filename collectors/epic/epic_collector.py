@@ -91,7 +91,7 @@ class EpicCollector(BaseCollector):
 
             return games, result
 
-        except Exception as exc:
+        except Exception as exc:  # noqa: BLE001
             duration = perf_counter() - start_timer
             finished_at = self.now_iso()
 
@@ -177,7 +177,7 @@ class EpicCollector(BaseCollector):
                                 "source_files": [str(launcher_installed_path)],
                             }
                         )
-            except Exception as exc:
+            except (OSError, json.JSONDecodeError) as exc:
                 if self.debug:
                     print(f"[EPIC DEBUG] échec lecture LauncherInstalled.dat: {exc}")
 
@@ -190,7 +190,7 @@ class EpicCollector(BaseCollector):
             for manifest_path in manifest_dir.glob("*.item"):
                 try:
                     data = json.loads(manifest_path.read_text(encoding="utf-8"))
-                except Exception as exc:
+                except (OSError, json.JSONDecodeError) as exc:
                     if self.debug:
                         print(f"[EPIC DEBUG] échec lecture manifest {manifest_path.name}: {exc}")
                     continue
@@ -294,7 +294,7 @@ class EpicCollector(BaseCollector):
         for log_path in log_files:
             try:
                 text = log_path.read_text(encoding="utf-8", errors="ignore")
-            except Exception as exc:
+            except OSError as exc:
                 if self.debug:
                     print(f"[EPIC DEBUG] échec lecture log {log_path.name}: {exc}")
                 continue
@@ -368,7 +368,7 @@ class EpicCollector(BaseCollector):
 
         try:
             year, month, day, hour, minute, second = map(int, match.groups())
-            return datetime(year, month, day, hour, minute, second)
+            return datetime(year, month, day, hour, minute, second)  # noqa: DTZ001
         except ValueError:
             return None
 

@@ -36,7 +36,7 @@ except HTTPError as e:
     print("HTTP code:", e.code)
     try:
         print("Response body:", e.read().decode("utf-8"))
-    except Exception:
+    except (OSError, UnicodeDecodeError):
         print("Impossible de lire le body.")
 except URLError as e:
     print("URL error:", e.reason)
