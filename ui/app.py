@@ -1,4 +1,7 @@
 import customtkinter as ctk
+
+from collectors.osu_collector import OsuCollector
+from collectors.steam_collector import SteamCollector
 from config import (
     OSU_CLIENT_ID,
     OSU_CLIENT_SECRET,
@@ -6,9 +9,6 @@ from config import (
     STEAM_API_KEY,
     STEAM_ID,
 )
-
-from collectors.osu_collector import OsuCollector
-from collectors.steam_collector import SteamCollector
 from models.platform_account import PlatformAccount
 from services.import_service import ImportService
 from services.merge_service import MergeService

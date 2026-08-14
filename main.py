@@ -1,3 +1,8 @@
+from collectors.epic.epic_collector import EpicCollector
+from collectors.osu_collector import OsuCollector
+from collectors.riot.lol_collector import LoLCollector
+from collectors.riot.valorant_collector import ValorantCollector
+from collectors.steam_collector import SteamCollector
 from config import (
     EPIC_DEBUG,
     EPIC_ENABLE_LOG_ESTIMATE,
@@ -21,12 +26,6 @@ from config import (
     STEAM_API_KEY,
     STEAM_ID,
 )
-
-from collectors.epic.epic_collector import EpicCollector
-from collectors.osu_collector import OsuCollector
-from collectors.riot.lol_collector import LoLCollector
-from collectors.riot.valorant_collector import ValorantCollector
-from collectors.steam_collector import SteamCollector
 from models.platform_account import PlatformAccount
 from services.import_service import ImportService
 from services.merge_service import MergeService
