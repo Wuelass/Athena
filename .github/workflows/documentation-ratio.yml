@@ -1,0 +1,16 @@
+name: Measure internal documentation
+
+on:
+  push:
+    branches:
+      - c1-9-doc-measure
+      - c1-9-documentation
+  workflow_dispatch:
+
+jobs:
+  measure:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Measure Python documentation ratio
+        run: python tools/documentation_ratio.py
