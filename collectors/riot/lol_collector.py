@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 from time import perf_counter
-from typing import List, Tuple
 
 from collectors.riot.riot_base_collector import RiotBaseCollector
 from models.normalized_game import NormalizedGame
@@ -53,7 +52,7 @@ class LoLCollector(RiotBaseCollector):
                 "mastery_points_per_estimated_game doit être supérieur à 0"
             )
 
-    def collect(self, account: PlatformAccount) -> Tuple[List[NormalizedGame], SyncResult]:
+    def collect(self, account: PlatformAccount) -> tuple[list[NormalizedGame], SyncResult]:
         self.validate_account(account)
 
         started_at = self.now_iso()

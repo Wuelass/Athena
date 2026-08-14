@@ -6,7 +6,6 @@ import re
 from datetime import datetime
 from pathlib import Path
 from time import perf_counter
-from typing import Dict, List, Tuple
 
 from collectors.base_collector import BaseCollector
 from models.normalized_game import NormalizedGame
@@ -33,7 +32,7 @@ class EpicCollector(BaseCollector):
         if self.max_session_hours <= 0:
             raise ValueError("max_session_hours doit être supérieur à 0")
 
-    def collect(self, account: PlatformAccount) -> Tuple[List[NormalizedGame], SyncResult]:
+    def collect(self, account: PlatformAccount) -> tuple[list[NormalizedGame], SyncResult]:
         self.validate_account(account)
 
         started_at = self.now_iso()
@@ -328,8 +327,7 @@ class EpicCollector(BaseCollector):
                     if duration_seconds <= 60:
                         continue
 
-                    if duration_seconds > max_seconds:
-                        duration_seconds = max_seconds
+                    duration_seconds = min(duration_seconds, max_seconds)
 
                     entry = session_totals.setdefault(
                         stopped_app,

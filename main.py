@@ -1,39 +1,35 @@
-from collectors.steam_collector import SteamCollector
+from collectors.epic.epic_collector import EpicCollector
 from collectors.osu_collector import OsuCollector
 from collectors.riot.lol_collector import LoLCollector
 from collectors.riot.valorant_collector import ValorantCollector
-from collectors.epic.epic_collector import EpicCollector
-from services.xbox_import_service import XboxImportService
-
+from collectors.steam_collector import SteamCollector
 from config import (
-    STEAM_API_KEY,
-    STEAM_ID,
+    EPIC_DEBUG,
+    EPIC_ENABLE_LOG_ESTIMATE,
+    EPIC_MAX_SESSION_HOURS,
+    EPIC_SAVED_DIR,
     OSU_CLIENT_ID,
     OSU_CLIENT_SECRET,
     OSU_USER_ID,
     RIOT_API_KEY,
-    RIOT_PUUID,
-    RIOT_MATCH_ROUTE,
-    RIOT_PLATFORM_REGION,
-    RIOT_VAL_REGION,
-    RIOT_GAME_NAME,
-    RIOT_TAG,
-    RIOT_MAX_MATCHES,
     RIOT_BATCH_SIZE,
     RIOT_DEBUG,
-    RIOT_USE_MASTERY_ESTIMATE,
+    RIOT_GAME_NAME,
     RIOT_MASTERY_POINTS_PER_ESTIMATED_GAME,
-    EPIC_SAVED_DIR,
-    EPIC_DEBUG,
-    EPIC_ENABLE_LOG_ESTIMATE,
-    EPIC_MAX_SESSION_HOURS,
+    RIOT_MATCH_ROUTE,
+    RIOT_MAX_MATCHES,
+    RIOT_PLATFORM_REGION,
+    RIOT_PUUID,
+    RIOT_TAG,
+    RIOT_USE_MASTERY_ESTIMATE,
+    RIOT_VAL_REGION,
+    STEAM_API_KEY,
+    STEAM_ID,
 )
-
 from models.platform_account import PlatformAccount
 from services.import_service import ImportService
-from services.stats_service import StatsService
 from services.merge_service import MergeService
-from ui.app import run_app
+from services.stats_service import StatsService
 
 
 def main() -> None:

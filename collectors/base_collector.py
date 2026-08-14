@@ -2,7 +2,6 @@ from __future__ import annotations
 
 from abc import ABC, abstractmethod
 from datetime import datetime
-from typing import List, Tuple
 
 from models.normalized_game import NormalizedGame
 from models.platform_account import PlatformAccount
@@ -17,7 +16,7 @@ class BaseCollector(ABC):
             raise ValueError("Chaque collector doit définir platform_name")
 
     @abstractmethod
-    def collect(self, account: PlatformAccount) -> Tuple[List[NormalizedGame], SyncResult]:
+    def collect(self, account: PlatformAccount) -> tuple[list[NormalizedGame], SyncResult]:
         """
         Récupère les données d'une plateforme pour un compte donné.
 

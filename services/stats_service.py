@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from typing import List
 
 from models.normalized_game import NormalizedGame
 
@@ -26,7 +25,7 @@ class StatsSummary:
     total_playtime_hours: float = 0.0
     average_playtime_hours: float = 0.0
     estimated_games_count: int = 0
-    top_games: List[GameStat] = field(default_factory=list)
+    top_games: list[GameStat] = field(default_factory=list)
     platform_breakdown: dict = field(default_factory=dict)
 
     def to_dict(self) -> dict:
@@ -43,7 +42,7 @@ class StatsSummary:
 class StatsService:
     def build_summary(
         self,
-        games: List[NormalizedGame],
+        games: list[NormalizedGame],
         top_limit: int = 5,
     ) -> StatsSummary:
         if top_limit <= 0:
@@ -87,17 +86,17 @@ class StatsService:
             platform_breakdown=platform_breakdown,
         )
 
-    def total_playtime(self, games: List[NormalizedGame]) -> float:
+    def total_playtime(self, games: list[NormalizedGame]) -> float:
         return round(sum(game.playtime_hours for game in games), 2)
 
-    def total_games(self, games: List[NormalizedGame]) -> int:
+    def total_games(self, games: list[NormalizedGame]) -> int:
         return len(games)
 
     def top_games(
         self,
-        games: List[NormalizedGame],
+        games: list[NormalizedGame],
         limit: int = 5,
-    ) -> List[GameStat]:
+    ) -> list[GameStat]:
         if limit <= 0:
             raise ValueError("limit doit être supérieur à 0")
 
@@ -116,7 +115,7 @@ class StatsService:
             for game in sorted_games
         ]
 
-    def _build_platform_breakdown(self, games: List[NormalizedGame]) -> dict:
+    def _build_platform_breakdown(self, games: list[NormalizedGame]) -> dict:
         breakdown: dict = {}
 
         for game in games:

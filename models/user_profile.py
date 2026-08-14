@@ -1,5 +1,4 @@
 from dataclasses import dataclass, field
-from typing import List
 
 from models.platform_account import PlatformAccount
 
@@ -8,12 +7,12 @@ from models.platform_account import PlatformAccount
 class UserProfile:
     profile_id: str
     display_name: str
-    accounts: List[PlatformAccount] = field(default_factory=list)
+    accounts: list[PlatformAccount] = field(default_factory=list)
 
     def add_account(self, account: PlatformAccount) -> None:
         self.accounts.append(account)
 
-    def get_accounts_by_platform(self, platform: str) -> List[PlatformAccount]:
+    def get_accounts_by_platform(self, platform: str) -> list[PlatformAccount]:
         return [
             account for account in self.accounts
             if account.platform == platform

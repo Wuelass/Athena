@@ -1,5 +1,4 @@
 from dataclasses import dataclass, field
-from typing import Optional
 
 
 @dataclass
@@ -8,19 +7,19 @@ class NormalizedGame:
     platform: str
     playtime_hours: float
 
-    game_id: Optional[str] = None
-    launcher: Optional[str] = None
-    genre: Optional[str] = None
-    last_played: Optional[str] = None
+    game_id: str | None = None
+    launcher: str | None = None
+    genre: str | None = None
+    last_played: str | None = None
 
     source: str = "api"
-    source_detail: Optional[str] = None
+    source_detail: str | None = None
 
     is_estimated: bool = False
     confidence: float = 1.0
 
-    icon_url: Optional[str] = None
-    cover_url: Optional[str] = None
+    icon_url: str | None = None
+    cover_url: str | None = None
 
     raw_data: dict = field(default_factory=dict)
 

@@ -1,5 +1,4 @@
 from dataclasses import dataclass, field
-from typing import Optional
 
 
 @dataclass
@@ -7,16 +6,16 @@ class PlatformAccount:
     platform: str
     account_id: str
 
-    username: Optional[str] = None
-    display_name: Optional[str] = None
-    region: Optional[str] = None
-    tag: Optional[str] = None
+    username: str | None = None
+    display_name: str | None = None
+    region: str | None = None
+    tag: str | None = None
 
     is_active: bool = True
     is_connected: bool = False
 
-    profile_url: Optional[str] = None
-    avatar_url: Optional[str] = None
+    profile_url: str | None = None
+    avatar_url: str | None = None
 
     metadata: dict = field(default_factory=dict)
     raw_data: dict = field(default_factory=dict)
@@ -69,8 +68,8 @@ class PlatformAccount:
     def from_steam(
         cls,
         steam_id: str,
-        username: Optional[str] = None,
-        raw_data: Optional[dict] = None,
+        username: str | None = None,
+        raw_data: dict | None = None,
     ) -> "PlatformAccount":
         return cls(
             platform="steam",
@@ -86,8 +85,8 @@ class PlatformAccount:
     def from_osu(
         cls,
         user_id: str,
-        username: Optional[str] = None,
-        raw_data: Optional[dict] = None,
+        username: str | None = None,
+        raw_data: dict | None = None,
     ) -> "PlatformAccount":
         return cls(
             platform="osu",
@@ -103,11 +102,11 @@ class PlatformAccount:
     def from_riot(
         cls,
         puuid: str,
-        game_name: Optional[str] = None,
-        tag: Optional[str] = None,
-        username: Optional[str] = None,
-        region: Optional[str] = None,
-        raw_data: Optional[dict] = None,
+        game_name: str | None = None,
+        tag: str | None = None,
+        username: str | None = None,
+        region: str | None = None,
+        raw_data: dict | None = None,
     ) -> "PlatformAccount":
 
         if username and not game_name:

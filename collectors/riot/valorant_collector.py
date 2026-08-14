@@ -1,9 +1,8 @@
 from __future__ import annotations
 
-import json
 import re
 from time import perf_counter
-from typing import Any, List, Tuple
+from typing import Any
 from urllib.parse import unquote
 
 from playwright.sync_api import TimeoutError as PlaywrightTimeoutError
@@ -30,7 +29,7 @@ class ValorantCollector(RiotBaseCollector):
         self.debug = debug
         self.headless = headless
 
-    def collect(self, account: PlatformAccount) -> Tuple[List[NormalizedGame], SyncResult]:
+    def collect(self, account: PlatformAccount) -> tuple[list[NormalizedGame], SyncResult]:
         self.validate_account(account)
 
         started_at = self.now_iso()
@@ -250,7 +249,7 @@ class ValorantCollector(RiotBaseCollector):
 
         for pattern in label_patterns:
             try:
-                page.get_by_text(re.compile(pattern, re.I)).first.wait_for(timeout=2500)
+                page.get_by_text(re.compile(pattern, re.IGNORECASE)).first.wait_for(timeout=2500)
                 if self.debug:
                     print(f"[VAL DEBUG] label détecté: {pattern}")
                 return

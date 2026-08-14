@@ -1,8 +1,7 @@
 import re
-from typing import Optional
 
-from PIL import Image
 import pytesseract
+from PIL import Image
 
 pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
 
@@ -24,7 +23,7 @@ def clean_text(text: str) -> str:
     return text.strip()
 
 
-def extract_playtime(text: str) -> Optional[str]:
+def extract_playtime(text: str) -> str | None:
     """
     Extrait une chaîne de type :
     - 12 min

@@ -1,14 +1,13 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from typing import List
 
 from models.normalized_game import NormalizedGame
 
 
 @dataclass
 class MergeResult:
-    merged_games: List[NormalizedGame] = field(default_factory=list)
+    merged_games: list[NormalizedGame] = field(default_factory=list)
     duplicates_removed: int = 0
     invalid_entries_skipped: int = 0
 
@@ -30,7 +29,7 @@ class MergeService:
         game_lists: list[list[NormalizedGame]],
         sort_by_playtime: bool = True,
     ) -> MergeResult:
-        merged_games: List[NormalizedGame] = []
+        merged_games: list[NormalizedGame] = []
         duplicates_removed = 0
         invalid_entries_skipped = 0
 

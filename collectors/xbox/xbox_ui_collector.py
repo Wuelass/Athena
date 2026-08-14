@@ -1,14 +1,13 @@
-import ctypes
 import csv
+import ctypes
 import json
 import time
 from pathlib import Path
-from typing import Dict, List
 
 import pyautogui
 from PIL import Image
 
-from utils.ocr import image_to_text, clean_text, extract_playtime, playtime_to_hours
+from utils.ocr import clean_text, extract_playtime, image_to_text, playtime_to_hours
 
 
 def enable_dpi_awareness() -> None:
@@ -70,7 +69,7 @@ class XboxUICollector:
         pyautogui.press("down")
         time.sleep(self.move_delay)
 
-    def _save(self, data: List[Dict]) -> None:
+    def _save(self, data: list[dict]) -> None:
         json_path = self.output_dir / "xbox_data.json"
         csv_path = self.output_dir / "xbox_data.csv"
 
@@ -87,7 +86,7 @@ class XboxUICollector:
 
         print(f"💾 Sauvegardé dans {self.output_dir}")
 
-    def collect(self, max_games: int = 50) -> List[Dict]:
+    def collect(self, max_games: int = 50) -> list[dict]:
         results = []
         seen_names = set()
 

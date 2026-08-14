@@ -1,5 +1,4 @@
 from dataclasses import dataclass, field
-from typing import List, Optional
 
 
 @dataclass
@@ -11,11 +10,11 @@ class SyncResult:
     total_games_imported: int = 0
 
     duration_seconds: float = 0.0
-    errors: List[str] = field(default_factory=list)
-    warnings: List[str] = field(default_factory=list)
+    errors: list[str] = field(default_factory=list)
+    warnings: list[str] = field(default_factory=list)
 
-    started_at: Optional[str] = None
-    finished_at: Optional[str] = None
+    started_at: str | None = None
+    finished_at: str | None = None
 
     raw_summary: dict = field(default_factory=dict)
 
@@ -69,9 +68,9 @@ class SyncResult:
         total_games_found: int,
         total_games_imported: int,
         duration_seconds: float = 0.0,
-        started_at: Optional[str] = None,
-        finished_at: Optional[str] = None,
-        raw_summary: Optional[dict] = None,
+        started_at: str | None = None,
+        finished_at: str | None = None,
+        raw_summary: dict | None = None,
     ) -> "SyncResult":
         return cls(
             success=True,
@@ -90,9 +89,9 @@ class SyncResult:
         platform: str,
         error_message: str,
         duration_seconds: float = 0.0,
-        started_at: Optional[str] = None,
-        finished_at: Optional[str] = None,
-        raw_summary: Optional[dict] = None,
+        started_at: str | None = None,
+        finished_at: str | None = None,
+        raw_summary: dict | None = None,
     ) -> "SyncResult":
         return cls(
             success=False,

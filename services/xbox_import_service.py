@@ -2,7 +2,6 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
-from typing import List
 
 from models.normalized_game import NormalizedGame
 
@@ -11,7 +10,7 @@ class XboxImportService:
     def __init__(self, json_path: str = "data/xbox/xbox_data.json") -> None:
         self.json_path = Path(json_path)
 
-    def load_games(self) -> List[NormalizedGame]:
+    def load_games(self) -> list[NormalizedGame]:
         if not self.json_path.exists():
             print(f"[Xbox] Fichier introuvable : {self.json_path}")
             return []
@@ -19,7 +18,7 @@ class XboxImportService:
         with open(self.json_path, "r", encoding="utf-8") as f:
             raw_data = json.load(f)
 
-        games: List[NormalizedGame] = []
+        games: list[NormalizedGame] = []
 
         for item in raw_data:
             game_name = str(item.get("game_name", "")).strip()

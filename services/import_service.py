@@ -3,7 +3,6 @@ from __future__ import annotations
 import json
 from dataclasses import dataclass, field
 from pathlib import Path
-from typing import List, Optional
 
 from collectors.base_collector import BaseCollector
 from models.normalized_game import NormalizedGame
@@ -14,8 +13,8 @@ from models.sync_result import SyncResult
 @dataclass
 class ImportReport:
     account: PlatformAccount
-    games: List[NormalizedGame] = field(default_factory=list)
-    sync_result: Optional[SyncResult] = None
+    games: list[NormalizedGame] = field(default_factory=list)
+    sync_result: SyncResult | None = None
 
     def is_success(self) -> bool:
         return self.sync_result is not None and self.sync_result.success

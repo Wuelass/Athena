@@ -1,19 +1,16 @@
 from __future__ import annotations
 
+import json
+import logging
 from time import perf_counter
-from typing import List, Tuple
 from urllib.error import HTTPError, URLError
 from urllib.parse import urlencode
 from urllib.request import Request, urlopen
-import json
 
 from collectors.base_collector import BaseCollector
 from models.normalized_game import NormalizedGame
 from models.platform_account import PlatformAccount
 from models.sync_result import SyncResult
-
-import logging
-from typing import List
 
 logger = logging.getLogger(__name__)
 
@@ -30,7 +27,7 @@ class SteamCollector(BaseCollector):
         if not self.api_key:
             raise ValueError("api_key Steam ne peut pas être vide")
 
-    def collect(self, account: PlatformAccount) -> Tuple[List[NormalizedGame], SyncResult]:
+    def collect(self, account: PlatformAccount) -> tuple[list[NormalizedGame], SyncResult]:
         self.validate_account(account)
 
         started_at = self.now_iso()
@@ -108,8 +105,8 @@ class SteamCollector(BaseCollector):
 
         return games
 
-    def _normalize_games(self, raw_games: list[dict]) -> List[NormalizedGame]:
-        normalized_games: List[NormalizedGame] = []
+    def _normalize_games(self, raw_games: list[dict]) -> list[NormalizedGame]:
+        normalized_games: list[NormalizedGame] = []
 
         for index, raw_game in enumerate(raw_games):
             try:

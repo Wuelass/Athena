@@ -1,11 +1,10 @@
 from __future__ import annotations
 
+import json
 from time import perf_counter
-from typing import List, Tuple
 from urllib.error import HTTPError, URLError
 from urllib.parse import urlencode
 from urllib.request import Request, urlopen
-import json
 
 from collectors.base_collector import BaseCollector
 from models.normalized_game import NormalizedGame
@@ -31,7 +30,7 @@ class OsuCollector(BaseCollector):
         if not self.client_secret:
             raise ValueError("client_secret osu ne peut pas être vide")
 
-    def collect(self, account: PlatformAccount) -> Tuple[List[NormalizedGame], SyncResult]:
+    def collect(self, account: PlatformAccount) -> tuple[list[NormalizedGame], SyncResult]:
         self.validate_account(account)
 
         started_at = self.now_iso()
