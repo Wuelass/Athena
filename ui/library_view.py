@@ -1,3 +1,18 @@
+"""Library view displaying normalized games in Athena.
+
+Responsibilities:
+- Render the merged collection of normalized game records.
+- Present platform and playtime information in a readable layout.
+- Refresh displayed content when application state changes.
+- Keep display formatting out of business and collection services.
+Architecture notes:
+- The view consumes normalized models produced by the service layer.
+- It does not need to understand Steam, Riot, osu! or Xbox APIs.
+- Widget creation remains isolated in the presentation layer.
+- Data transformations required for business rules occur before rendering.
+- This separation allows presentation changes without collector changes.
+"""
+
 import customtkinter as ctk
 
 from ui.widgets.platform_badge import PlatformBadge

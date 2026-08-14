@@ -1,3 +1,18 @@
+"""Application service responsible for merging normalized game records.
+
+Responsibilities:
+- Combine records coming from several supported gaming platforms.
+- Apply consistent duplicate-handling rules to normalized inputs.
+- Preserve useful source information while producing one merged collection.
+- Keep merge rules independent from collectors and presentation code.
+Architecture notes:
+- The service works on ``NormalizedGame`` objects rather than raw APIs.
+- The same merge logic is reusable from CLI and graphical workflows.
+- Centralizing the rule avoids divergent behaviour between interfaces.
+- Platform-specific parsing is completed before this service is called.
+- The service forms part of Athena's reusable business core.
+"""
+
 from __future__ import annotations
 
 from dataclasses import dataclass, field

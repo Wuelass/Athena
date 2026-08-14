@@ -1,3 +1,18 @@
+"""Application service dedicated to importing Xbox data.
+
+Responsibilities:
+- Convert Xbox import records into Athena normalized game objects.
+- Validate the imported structure before exposing it to higher layers.
+- Isolate Xbox file-import rules from UI and generic statistics code.
+- Return data compatible with the common merge and analysis pipeline.
+Architecture notes:
+- Import-specific conversion is centralized in one service component.
+- Higher layers remain independent from the Xbox source file structure.
+- Normalized output can be processed with records from other platforms.
+- The service complements collectors when data originates from an import.
+- Changes to the Xbox import format remain localized here.
+"""
+
 from __future__ import annotations
 
 import json

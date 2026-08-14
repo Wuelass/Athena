@@ -1,3 +1,18 @@
+"""Persistence repository for Athena user profiles.
+
+Responsibilities:
+- Centralize reading and writing of profile information.
+- Hide the concrete storage representation from application services.
+- Convert persisted values to and from the user-profile domain model.
+- Provide one persistence boundary for profile-related operations.
+Architecture notes:
+- Callers do not manipulate profile files directly.
+- Storage changes remain localized to the repository implementation.
+- File-system details are kept outside collectors and presentation classes.
+- The repository supports separation between domain and persistence layers.
+- Explicit methods make persistence operations easier to test and replace.
+"""
+
 import json
 from pathlib import Path
 

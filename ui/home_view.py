@@ -1,3 +1,18 @@
+"""Home view for the Athena graphical interface.
+
+Responsibilities:
+- Present the main entry actions available to the user.
+- Forward import requests to the callback supplied by the application.
+- Keep widget creation and layout inside the presentation layer.
+- Display introductory state without performing business calculations.
+Architecture notes:
+- The view receives behaviour through callbacks instead of services internals.
+- Data collection remains outside this presentation component.
+- Styling choices are localized to the graphical layer.
+- The component can evolve without changing collector implementations.
+- Its public role is intentionally limited to presentation and interaction.
+"""
+
 import customtkinter as ctk
 
 

@@ -1,3 +1,18 @@
+"""Application entry point for Athena.
+
+Responsibilities:
+- Build the platform collectors used by the command-line flow.
+- Instantiate the reusable import, merge and statistics services.
+- Coordinate collection without embedding platform-specific logic.
+- Convert collected values into normalized domain objects.
+Architecture notes:
+- External access remains isolated in collector classes.
+- Business operations remain delegated to service classes.
+- Models carry normalized data between application layers.
+- Configuration values are read from the dedicated config module.
+- This module focuses on orchestration rather than business rules.
+"""
+
 from collectors.epic.epic_collector import EpicCollector
 from collectors.osu_collector import OsuCollector
 from collectors.riot.lol_collector import LoLCollector

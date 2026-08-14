@@ -1,3 +1,18 @@
+"""Reusable card widget for displaying a statistic.
+
+Responsibilities:
+- Present one label/value pair in a consistent visual component.
+- Centralize card styling shared by Athena statistics screens.
+- Reduce repeated widget construction in higher-level views.
+- Keep formatting concerns inside the presentation layer.
+Architecture notes:
+- The widget receives computed values instead of calculating statistics.
+- Business rules remain delegated to ``StatsService``.
+- Reuse provides consistent rendering across the application.
+- Visual changes can be made without affecting domain services.
+- The component has a deliberately small presentation responsibility.
+"""
+
 import customtkinter as ctk
 
 

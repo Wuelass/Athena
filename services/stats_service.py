@@ -1,3 +1,18 @@
+"""Application service that computes statistics from normalized games.
+
+Responsibilities:
+- Aggregate playtime information from the normalized game collection.
+- Build summary indicators used by Athena presentation layers.
+- Group statistics by platform and other supported dimensions.
+- Keep calculation rules independent from interface widgets.
+Architecture notes:
+- Inputs use domain models rather than external API response formats.
+- The service is shared by CLI and graphical application flows.
+- Calculation behaviour therefore has one implementation and one contract.
+- Presentation classes only display the values returned by this service.
+- The service forms part of Athena's reusable business core.
+"""
+
 from __future__ import annotations
 
 from dataclasses import dataclass, field

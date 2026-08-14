@@ -1,3 +1,18 @@
+"""Steam API collector for the Athena application.
+
+Responsibilities:
+- Retrieve the owned-games information required by Athena.
+- Encapsulate Steam authentication and endpoint-specific parameters.
+- Validate the external response before returning collected records.
+- Expose playtime data without coupling callers to Steam JSON details.
+Architecture notes:
+- Steam-specific integration logic remains inside this collector.
+- Normalized domain models are built outside raw API response handling.
+- The collector is reusable from both CLI and graphical workflows.
+- Configuration is provided at construction rather than hard-coded.
+- Failures at the external boundary are surfaced in a controlled way.
+"""
+
 from __future__ import annotations
 
 import json

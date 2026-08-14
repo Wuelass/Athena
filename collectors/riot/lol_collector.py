@@ -1,3 +1,18 @@
+"""League of Legends collector for Riot data.
+
+Responsibilities:
+- Retrieve match and account information required by Athena.
+- Estimate playtime from the available Riot match history.
+- Reuse the Riot cache repository instead of handling JSON directly.
+- Keep Riot-specific pagination and request rules inside this layer.
+Architecture notes:
+- Persistent cache access is delegated to a repository object.
+- External API details do not leak into services or UI classes.
+- Collected values are prepared for normalized domain models.
+- Caching reduces unnecessary requests to the external API.
+- Errors are handled close to the external integration boundary.
+"""
+
 from __future__ import annotations
 
 from time import perf_counter

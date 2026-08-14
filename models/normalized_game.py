@@ -1,3 +1,18 @@
+"""Canonical game model shared by Athena data sources.
+
+Responsibilities:
+- Represent a game using one structure regardless of its source platform.
+- Validate core invariants such as non-negative playtime and confidence.
+- Preserve optional source metadata required for later analysis.
+- Provide constructors that translate platform records into one model.
+Architecture notes:
+- Steam, osu!, Riot and Xbox data converge on this domain object.
+- Services can therefore operate without platform-specific conditionals.
+- Factory class methods keep conversion rules close to the model contract.
+- ``to_dict`` provides a stable serialization shape for output layers.
+- The model is the main reusable boundary between collectors and services.
+"""
+
 from dataclasses import dataclass, field
 
 

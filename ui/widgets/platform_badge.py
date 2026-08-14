@@ -1,3 +1,18 @@
+"""Reusable badge widget for displaying a gaming platform.
+
+Responsibilities:
+- Render a compact platform identifier inside Athena views.
+- Centralize the visual representation reused across presentation screens.
+- Keep platform badge styling out of higher-level view classes.
+- Provide one small widget with a focused presentation responsibility.
+Architecture notes:
+- Reuse avoids duplicating layout and styling code between views.
+- The widget consumes already-normalized display values.
+- It contains no collection, persistence or business behaviour.
+- Changes to badge appearance remain isolated to this file.
+- The component follows the single-responsibility principle.
+"""
+
 from typing import ClassVar
 
 import customtkinter as ctk

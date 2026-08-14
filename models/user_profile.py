@@ -1,3 +1,18 @@
+"""Domain model for an Athena user profile.
+
+Responsibilities:
+- Group profile-level information independently from platform collectors.
+- Provide a stable structure for persistence and application services.
+- Keep user metadata separate from individual normalized game records.
+- Support serialization through a small predictable model contract.
+Architecture notes:
+- Repository code persists this model instead of UI-specific state.
+- Business services can depend on the model without knowing storage details.
+- The structure remains intentionally small and focused on profile data.
+- Future profile attributes can be added without changing collectors.
+- The model belongs to the domain layer of the Athena architecture.
+"""
+
 from dataclasses import dataclass, field
 
 from models.platform_account import PlatformAccount

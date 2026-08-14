@@ -1,3 +1,18 @@
+"""Main graphical application window for Athena.
+
+Responsibilities:
+- Assemble views, collectors and reusable application services.
+- Coordinate user actions without reimplementing business calculations.
+- Maintain the current normalized games and summary state for the UI.
+- Route import results to the appropriate presentation components.
+Architecture notes:
+- Import, merge and statistics services are reused from the business core.
+- Collectors remain responsible for external platform access.
+- Views focus on rendering and user interaction.
+- Domain models carry data between UI and service layers.
+- The class acts as presentation orchestration rather than business logic.
+"""
+
 import customtkinter as ctk
 
 from collectors.osu_collector import OsuCollector

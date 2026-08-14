@@ -1,3 +1,18 @@
+"""Valorant collector for Riot data used by Athena.
+
+Responsibilities:
+- Retrieve the Valorant information available to the application.
+- Encapsulate Riot-specific endpoints and response processing.
+- Convert remote records into values usable by Athena domain models.
+- Keep estimation rules close to the source that provides the data.
+Architecture notes:
+- Shared Riot behaviour is inherited from the common base collector.
+- Business services do not depend on Riot response structures.
+- Remote failures remain isolated in the integration layer.
+- Returned information follows the same normalization approach as peers.
+- The collector can evolve independently of the graphical interface.
+"""
+
 from __future__ import annotations
 
 import re

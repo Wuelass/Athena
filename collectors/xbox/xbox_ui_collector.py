@@ -1,3 +1,18 @@
+"""Xbox user-interface collector used by Athena.
+
+Responsibilities:
+- Extract Xbox playtime information from the supported UI workflow.
+- Isolate screen-driven collection from the rest of the application.
+- Transform extracted values into a predictable intermediate structure.
+- Keep UI automation concerns out of domain and statistics services.
+Architecture notes:
+- Collection details remain replaceable behind the collector boundary.
+- OCR and screen interaction helpers are delegated to utility functions.
+- Higher layers receive data rather than automation implementation details.
+- Failures can be diagnosed without modifying business services.
+- The component complements API-based collectors with a separate source.
+"""
+
 import csv
 import ctypes
 import json

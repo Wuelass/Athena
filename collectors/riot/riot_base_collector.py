@@ -1,3 +1,18 @@
+"""Shared foundation for Riot platform collectors.
+
+Responsibilities:
+- Centralize behaviour common to Riot-based integrations.
+- Provide reusable request and authentication helpers to subclasses.
+- Keep shared Riot configuration in one implementation boundary.
+- Reduce duplication between League of Legends and Valorant collectors.
+Architecture notes:
+- Specialized collectors extend this base instead of copying logic.
+- Common integration rules therefore have a single maintenance point.
+- Platform-specific behaviour remains implemented by each subclass.
+- The class supports consistent error handling across Riot collectors.
+- Reuse at this layer improves maintainability of external integrations.
+"""
+
 from __future__ import annotations
 
 import json

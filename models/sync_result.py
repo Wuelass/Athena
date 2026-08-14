@@ -1,3 +1,18 @@
+"""Domain model for the result of a synchronization operation.
+
+Responsibilities:
+- Describe whether a platform synchronization succeeded or failed.
+- Carry normalized game records produced during synchronization.
+- Preserve diagnostic information required by callers and the interface.
+- Offer a consistent result contract across different collectors.
+Architecture notes:
+- Callers inspect one result type instead of platform-specific responses.
+- Error information travels as data rather than presentation-side logic.
+- The object simplifies coordination inside the import service.
+- Success and failure factories keep result construction consistent.
+- The model separates synchronization state from transport details.
+"""
+
 from dataclasses import dataclass, field
 
 
