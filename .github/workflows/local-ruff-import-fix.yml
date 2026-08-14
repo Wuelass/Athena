@@ -1,0 +1,44 @@
+name: Fix local Ruff import grouping
+
+on:
+  push:
+    paths:
+      - '.github/workflows/local-ruff-import-fix.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Reorder first-party imports
+        shell: python
+        run: |
+          from pathlib import Path
+
+          main = Path('main.py')
+          text = main.read_text(encoding='utf-8')
+          collectors = '''from collectors.epic.epic_collector import EpicCollector\nfrom collectors.osu_collector import OsuCollector\nfrom collectors.riot.lol_collector import LoLCollector\nfrom collectors.riot.valorant_collector import ValorantCollector\nfrom collectors.steam_collector import SteamCollector\n'''
+          text = text.replace('\n' + collectors + 'from models.platform_account import PlatformAccount', '\nfrom models.platform_account import PlatformAccount', 1)
+          text = collectors + text
+          text = text.replace('    STEAM_ID,\n)\n\nfrom models.platform_account import PlatformAccount', '    STEAM_ID,\n)\nfrom models.platform_account import PlatformAccount', 1)
+          main.write_text(text, encoding='utf-8')
+
+          app = Path('ui/app.py')
+          text = app.read_text(encoding='utf-8')
+          app_collectors = '''from collectors.osu_collector import OsuCollector\nfrom collectors.steam_collector import SteamCollector\n'''
+          text = text.replace('\n' + app_collectors + 'from models.platform_account import PlatformAccount', '\nfrom models.platform_account import PlatformAccount', 1)
+          text = text.replace('import customtkinter as ctk\n', 'import customtkinter as ctk\n\n' + app_collectors, 1)
+          text = text.replace('    STEAM_ID,\n)\n\nfrom models.platform_account import PlatformAccount', '    STEAM_ID,\n)\nfrom models.platform_account import PlatformAccount', 1)
+          app.write_text(text, encoding='utf-8')
+      - name: Commit fixes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add main.py ui/app.py
+          git commit -m "Fix Ruff import grouping"
+          git push
